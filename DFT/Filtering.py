@@ -118,7 +118,7 @@ class Filtering:
         for i in range(0, row):
             for j in range(0, col):
                 val = math.sqrt(math.pow((i - (row / 2)), 2) + math.pow((j - (col / 2)), 2))
-                mask[i, j] = math.exp(-math.pow(val,2)/(2*math.pow(cutoff,2)))
+                mask[i, j] = 1/math.exp(math.pow(val,2)/(2*math.pow(cutoff,2)))
 
         return mask
 
@@ -201,7 +201,7 @@ class Filtering:
         filtered=fft_shift * mask
         filtered_image=np.absolute(filtered)
         filtered_image=np.log(filtered_image)*10
-        filtered_image=np.uint8(filtered_image)
+        #filtered_image=np.uint8(filtered_image)
 
         inv_shift = np.fft.ifftshift(filtered)
 
