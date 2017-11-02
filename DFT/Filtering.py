@@ -180,8 +180,7 @@ class Filtering:
         dft_img=np.absolute(fft_shift)
         dft_img=np.log(dft_img) * 10
         dft_img=np.uint8(dft_img)
-        #cv2.imshow("show", dft_img)
-        #cv2.waitKey(0)
+
         shape=[fft_image.shape[0],fft_image.shape[1]]
         if(self.filter==self.get_ideal_low_pass_filter):
             mask = self.get_ideal_low_pass_filter(shape,self.cutoff)
@@ -199,16 +198,14 @@ class Filtering:
         filtered_image=np.absolute(filtered)
         filtered_image=np.log(filtered_image)*10
         filtered_image=np.uint8(filtered_image)
-        #cv2.imshow("show", filtered_image)
-        #cv2.waitKey(0)
+
         inv_shift = np.fft.ifftshift(filtered)
         inverse = np.fft.ifft2(inv_shift)
         magnitude = np.absolute(inverse)
         img = self.post_process_image(magnitude)
-        #img = np.log(img)*10
+        
         img = np.uint8(img)
-        cv2.imshow("show", img)
-        cv2.waitKey(0)
+
 
 
         return [dft_img, filtered_image, img]
