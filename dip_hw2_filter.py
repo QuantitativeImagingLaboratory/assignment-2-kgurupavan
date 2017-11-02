@@ -56,7 +56,7 @@ def main():
         print("Mask not specified using default (ideal_l)")
         print("use the -h option to see usage information")
         mask = 'ideal_l'
-    elif args.mask not in ['ideal_l', 'ideal_h', 'butterworth_l', 'butterworth_h', 'gaussian_l' or 'gaussian_h']:
+    elif args.mask not in ['ideal_l', 'ideal_h', 'butterworth_l', 'butterworth_h', 'gaussian_l', 'gaussian_h']:
         print("Unknown mask, using default (ideal_l)")
         print("use the -h option to see usage information")
         mask = 'ideal_l'
@@ -87,7 +87,6 @@ def main():
 
     #Write output file
     output_dir = 'output/'
-
     output_image_name = output_dir+image_name+"_"+mask+datetime.now().strftime("%m%d-%H%M%S")+".jpg"
     cv2.imwrite(output_image_name, output[0])
     output_image_name = output_dir + image_name+"_dft_" + mask + datetime.now().strftime("%m%d-%H%M%S") + ".jpg"
