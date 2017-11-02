@@ -79,13 +79,14 @@ class Filtering:
         row = self.image.shape[0]
         col = self.image.shape[1]
         mask = np.zeros((row, col))
-        power=2 * order
+        power = 2 * order
         for i in range(0, row):
             for j in range(0, col):
                 val = math.sqrt(math.pow((i - (row / 2)), 2) + math.pow((j - (col / 2)), 2))
-                mask[i, j] =  (1 / (1 + math.pow((val / cutoff), power)))
+                mask[i, j] = (1 / (1 + math.pow((val / cutoff), power)))
 
         return mask
+
 
 
     def get_butterworth_high_pass_filter(self, shape, cutoff, order):
@@ -97,10 +98,13 @@ class Filtering:
         returns a butterworth high pass mask"""
 
         #Hint: May be one can use the low pass filter function to get a high pass mask
-        value=self.get_butterworth_low_pass_filter(shape,cutoff,order)
-        mask=1-value
+        value = self.get_butterworth_low_pass_filter(shape, cutoff, order)
+        mask = 1 - value
 
         return mask
+
+
+
 
     def get_gaussian_low_pass_filter(self, shape, cutoff):
         """Computes a gaussian low pass mask
@@ -110,7 +114,7 @@ class Filtering:
         returns a gaussian low pass mask"""
         row = self.image.shape[0]
         col = self.image.shape[1]
-        mask = np.zeros((row, col), dtype=np.uint8)
+        mask = np.zeros((row, col))
         for i in range(0, row):
             for j in range(0, col):
                 val = math.sqrt(math.pow((i - (row / 2)), 2) + math.pow((j - (col / 2)), 2))
@@ -200,11 +204,13 @@ class Filtering:
         filtered_image=np.uint8(filtered_image)
 
         inv_shift = np.fft.ifftshift(filtered)
+
         inverse = np.fft.ifft2(inv_shift)
+
         magnitude = np.absolute(inverse)
         img = self.post_process_image(magnitude)
-        
-        img = np.uint8(img)
+
+        #img = np.uint8(img)
 
 
 
