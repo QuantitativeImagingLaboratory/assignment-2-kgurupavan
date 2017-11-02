@@ -2,7 +2,6 @@
 # Do not use inbuilt functions like fft from either numpy, opencv or other libraries
 
 import numpy as np
-import scipy.fftpack
 import math
 class DFT:
 
@@ -37,8 +36,6 @@ class DFT:
         matrix: a 2d matrix (DFT) usually complex
         takes as input:
         returns a complex matrix representing the inverse fourier transform"""
-        inverse=scipy.fftpack.ifft2(matrix)
-        print(inverse)
         new_mat=np.zeros((15,15),dtype=np.complex)
         for i in range(0,15):
             for j in range(0,15):
