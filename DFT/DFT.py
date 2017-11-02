@@ -36,6 +36,7 @@ class DFT:
         matrix: a 2d matrix (DFT) usually complex
         takes as input:
         returns a complex matrix representing the inverse fourier transform"""
+
         new_mat=np.zeros((15,15),dtype=np.complex)
         for i in range(0,15):
             for j in range(0,15):

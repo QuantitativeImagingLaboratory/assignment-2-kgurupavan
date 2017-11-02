@@ -144,17 +144,10 @@ class Filtering:
         1. Full contrast stretch (fsimage)
         2. take negative (255 - fsimage)
         """
-        row=image.shape[0]
-        col=image.shape[1]
-       # new_mat=np.zeros((row,col))
+
         b=image.max()
         a=image.min()
         new_mat=(255)*((image-a)/(b - a))
-       # for i in range(0,row):
-        #    for j in range(0,col):
-         #       value = round(255*((image[i,j]-1)/(b - a)) + 0.5)
-                #value=(255*(image[i,j]-a))/(b-a)
-          #      new_mat[i,j]=value
         image=new_mat
         return image
 
@@ -179,6 +172,7 @@ class Filtering:
         Note: You do not have to do zero padding as discussed in class, the inbuilt functions takes care of that
         filtered image, magnitude of DFT, magnitude of filtered DFT: Make sure all images being returned have grey scale full contrast stretch and dtype=uint8 
         """
+
         fft_image = np.fft.fft2(self.image)
         fft_shift = np.fft.fftshift(fft_image)
         dft_img=np.absolute(fft_shift)
@@ -198,20 +192,15 @@ class Filtering:
             mask=self.get_gaussian_low_pass_filter(shape,self.cutoff)
         elif self.filter==self.get_gaussian_high_pass_filter:
             mask=self.get_gaussian_high_pass_filter(shape,self.cutoff)
+
+
         filtered=fft_shift * mask
         filtered_image=np.absolute(filtered)
         filtered_image=np.log(filtered_image)*10
-        #filtered_image=np.uint8(filtered_image)
 
         inv_shift = np.fft.ifftshift(filtered)
-
         inverse = np.fft.ifft2(inv_shift)
-
         magnitude = np.absolute(inverse)
         img = self.post_process_image(magnitude)
 
-        #img = np.uint8(img)
-
-
-
-        return [dft_img, filtered_image, img]
+        return [img, dft_img, filtered_image]
