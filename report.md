@@ -69,6 +69,32 @@ The following steps depicts the process involved in filtering:
 		
         3. get the mask calculated based on the given filter input
 		   mask = self.filter(shape, cutoff) or mask = self.filter(shape,cutoff,order) for butterworth filter
+		   
+		   D(u,v) is the distance between a point (u,v) in the frequency domain and the center of the frequency rectangle (image)
+		   
+		   Algorithm followed for ideal low pass filter:
+			if D(i,j) > cutoff:
+				mask[i,j] = 0
+			else:
+				mask[i,j] = 1
+		  
+		   Algorithm followed for ideal high pass filter:
+			mask = 1 - ideal_low_mask
+		   
+		   Formulae used for guassian low pass filter:
+			mask[i,j]= exp( -pow(D(i,j),2)/2 * pow(cutoff,2) )
+			
+		   Formulae used for guassian high pass filter:
+		    mask=1-guassian _low_mask
+			
+		   Formulae used for butterworth low pass filter:
+			mask[i,j]=1/( 1 + pow(D(i,j)/cutoff,2*order))
+		
+		   Formulae used for butterworth high pass filter:
+			mask = 1- butterworth_low_mask
+			
+		
+		   
         4. filter the image frequency based on the mask (Convolution theorem)
 		   filtered=fft_shift * mask
 		   
